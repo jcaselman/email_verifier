@@ -18,6 +18,8 @@ class EmailVerifier::Checker
     # a real user asks for it:
     @user_email = EmailVerifier.config.verifier_email
     _, @user_domain = @user_email.split "@"
+
+    @logger = EmailVerifier.config.logger
   end
 
   def list_mxs(domain)
@@ -77,6 +79,9 @@ class EmailVerifier::Checker
       ensure_250 @smtp.rcptto(address)
     rescue => e
       if e.message[/^550/]
+        if @logger
+          @logger.warn("EmailVerifier - 550 response received for address #{@email}, #{e.class.name}:#{e.message}")
+        end
         return false
       else
         raise EmailVerifier::FailureException.new(e.message)

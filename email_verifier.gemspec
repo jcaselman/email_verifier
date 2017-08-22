@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Helper utility checking if given email address exists or not}
   gem.homepage      = "http://endpoint.com"
 
-  gem.files         = `git ls-files`.split($/)
+  gem.files         = Dir.glob(File.join(File.dirname(__FILE__), "**/*"))#`git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]

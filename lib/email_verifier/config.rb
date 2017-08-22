@@ -3,6 +3,7 @@ module EmailVerifier
     class << self
       attr_accessor :verifier_email
       attr_accessor :test_mode
+      attr_accessor :logger
 
       def reset
         @verifier_email = "nobody@nonexistant.com"
